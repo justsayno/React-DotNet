@@ -2,7 +2,19 @@ import React, {Component, PropTypes} from 'react'
 import {reduxForm} from 'redux-form'
 export const fields = ['fullName', 'role', 'biography']
 
+// redux
 import { createEmployee } from 'redux/modules/employees'
+
+// form validator functions
+import { isRequiredValidator, fieldsValidator } from 'helpers/validators'
+
+const fullName = { key: 'fullName', name: 'Full Name', validators: [isRequiredValidator] }
+const role = { key: 'role', name: 'Role', validators: [isRequiredValidator] }
+const validationDefinitions = fieldsValidator(fullName, role)
+
+const validate = (data) => {
+  return validationDefinitions(data)
+}
 
 class EmployeeAddFormComponent extends Component {
   static propTypes = {
@@ -35,6 +47,7 @@ class EmployeeAddFormComponent extends Component {
         <div>
           <input className='form-control' type='text' placeholder='First Name' {...fullName}/>
         </div>
+        {fullName.touched && fullName.error && <div>{fullName.error}</div>}
       </div>
       <div className='form-group'>
         <label>Role</label>
@@ -49,6 +62,7 @@ class EmployeeAddFormComponent extends Component {
             <option value='Sales'>Sales</option>
           </select>
         </div>
+        {role.touched && role.error && <div>{role.error}</div>}
       </div>
       <div className='form-group'>
         <label>Biography</label>
@@ -74,5 +88,6 @@ class EmployeeAddFormComponent extends Component {
 
 export default reduxForm({
   form: 'add-employee',
-  fields
+  fields,
+  validate
 })(EmployeeAddFormComponent)
