@@ -17,6 +17,7 @@ following the instructions in the tutorial section.
 
 * node `^4.2.0`
 * npm `^3.0.0`
+* Visual Studio 2015
 
 ## Getting Started
 
@@ -46,7 +47,7 @@ If you prefer the command line then use the following commands:
 cd React-DotNet.Server
 dnu restore                 # Restore all the packages for the server project
 dnx ef database update      # Run the database migrations
-dnx web                     # Use DNX run time to run the project
+dnx web --ASPNET_ENV development   # Use DNX run time to run the project in development mode
 ```
 
 To start the front end build and hot reloading get back to the root of the project on the command line and
