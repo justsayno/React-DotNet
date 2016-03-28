@@ -80,7 +80,8 @@ namespace React_DotNet.Server
                 app.UseDatabaseErrorPage();
                 app.UseCors(builder =>
                     builder.WithOrigins(Configuration[ConfigurationStringConstants.Frontend.DevelopmentHost])
-                           .AllowAnyHeader());
+                           .AllowAnyHeader()
+                           .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS"));
             }
             else
             {
