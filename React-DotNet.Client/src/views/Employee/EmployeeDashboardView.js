@@ -1,0 +1,49 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+// components
+import { EmployeeDashboard } from 'components/employees'
+
+let employees = [
+  {
+    'id': '74e1f9ea-2c3d-4cfa-9923-4c78a68d10f5',
+    'fullName': 'Lina Greer',
+    'role': 'Project Manager',
+    'biography': 'On time on budget every time.'
+  },
+  {
+    'id': '4106663c-002f-4d91-8d18-9dff448c8c21',
+    'fullName': 'Hanna Error',
+    'role': 'Programmer',
+    'biography': 'Front end developer with a background in design and React Native.'
+  },
+  {
+    'id': '2b307238-8e43-4799-9c62-d69b3f2faf93',
+    'fullName': 'Larisa Avery',
+    'role': 'Programmer',
+    'biography': 'A very competent and skillful programmer with background in React and ASPNET Core.'
+  },
+  {
+    'id': '9ced697a-6e23-43dc-8e3f-ee4f3f30185a',
+    'fullName': 'Andrus Kauger',
+    'role': 'Sales',
+    'biography': 'Top sales person every month for the last 2 years.'
+  }
+]
+
+// We avoid using the `@connect` decorator on the class definition so
+// that we can export the undecorated component for testing.
+// See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
+export class EmployeeDashboardView extends Component {
+  render () {
+    return (
+      <EmployeeDashboard employees={employees}/>
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({
+})
+
+export default connect((mapStateToProps), {
+})(EmployeeDashboardView)

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/build/webpack.config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config/_base.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/employees/EmployeeDashboardComponent.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/employees/EmployeeListComponent.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/employees/EmployeeListItemComponent.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/layouts/CoreLayout/CoreLayout.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/redux/modules/employees.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/redux/rootReducer.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/routes/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/styles/core.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/CounterView/CounterView.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/CounterView/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/Employee/EmployeeAddView.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/Employee/EmployeeDashboardView.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/Employee/EmployeeProfileView.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/Employee/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/views/HomeView.spec.js" charset="UTF-8" />
+  </component>
+</project>
