@@ -26,6 +26,15 @@ function receiveAllEmployees (json) {
   }
 }
 
+export function fetchAllEmployeesIfNeeded (force = false) {
+  return (dispatch, getState) => {
+    let currentState = getState()
+    if (force || shouldFetchEmployees(currentState)) {
+      return dispatch(fetchAllEmployees())
+    }
+  }
+}
+
 export function fetchAllEmployees () {
   return (dispatch) => {
     dispatch(requestAllEmployees())
@@ -98,4 +107,20 @@ const initialState = {
 export default function employeeReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
+}
+
+// ------------------------------------
+// Helpers
+// ------------------------------------
+function shouldFetchEmployees (state) {
+  const { employees } = state
+  if (!employees.items) {
+    return true
+  } else if (employees.isFetching) {
+    return false
+  } else if (!employees.hasLoaded) {
+    return true
+  } else {
+    return employees.didInvalidate
+  }
 }

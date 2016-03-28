@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { EmployeeDashboard } from 'components/employees'
 
 // redux
-import { EmployeeDashboardSelector, fetchAllEmployees } from 'redux/modules/employees'
+import { EmployeeDashboardSelector, fetchAllEmployeesIfNeeded } from 'redux/modules/employees'
 
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
@@ -16,20 +16,11 @@ export class EmployeeDashboardView extends Component {
       fullName: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired
     })).isRequired,
-    hasLoaded: PropTypes.bool.isRequired,
-    didInvalidate: PropTypes.bool.isRequired,
-    fetchAllEmployees: PropTypes.func.isRequired
+    fetchAllEmployeesIfNeeded: PropTypes.func.isRequired
   }
 
   componentDidMount () {
-    this.fetchEmployees(this.props)
-  }
-
-  fetchEmployees = (props) => {
-    const {hasLoaded, didInvalidate} = props
-    if (!hasLoaded || didInvalidate) {
-      this.props.fetchAllEmployees()
-    }
+    this.props.fetchAllEmployeesIfNeeded()
   }
 
   render () {
@@ -41,5 +32,5 @@ export class EmployeeDashboardView extends Component {
 }
 
 export default connect((EmployeeDashboardSelector), {
-  fetchAllEmployees
+  fetchAllEmployeesIfNeeded
 })(EmployeeDashboardView)
