@@ -17,6 +17,7 @@ following the instructions in the tutorial section.
 
 * node `^4.2.0`
 * npm `^3.0.0`
+* Visual Studio 2015
 
 ## Getting Started
 
