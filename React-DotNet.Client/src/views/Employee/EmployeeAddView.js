@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { EmployeeAddForm } from 'components/employees'
+
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
@@ -18,26 +20,7 @@ export class EmployeeAddView extends Component {
           </div>
           <div className='row'>
             <div className='col-lg-6'>
-              <form>
-                <div className='form-group'>
-                  <label>Name</label>
-                  <input className='form-control'/>
-                </div>
-                <div className='form-group'>
-                  <label>Role:</label>
-                  <br/>
-                  <select className='form-control'>
-                    <option>Programmer</option>
-                    <option>Project Manager</option>
-                    <option>Sales</option>
-                  </select>
-                </div>
-                <div className='form-group'>
-                  <label>Biography:</label>
-                  <textarea className='form-control' rows='5'></textarea>
-                </div>
-                <button type='submit' className='btn btn-default'>Submit</button>
-              </form>
+              <EmployeeAddForm/>
             </div>
           </div>
         </div>
