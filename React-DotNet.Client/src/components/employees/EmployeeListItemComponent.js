@@ -9,10 +9,16 @@ class EmployeeListItemComponent extends Component {
   }
   render () {
     let { FullName, Role } = this.props
+    let panelClass = classNames({
+      'panel': true,
+      'panel-green': Role === 'Programmer',
+      'panel-red': Role === 'Project Manager',
+      'panel-yellow': Role === 'Sales'
+    })
 
     return (
       <div className='col-lg-3 col-md-6 employee-tile'>
-        <div className='panel panel-green'>
+        <div className={panelClass}>
           <div className='panel-heading'>
             <div className='row'>
               <div className='col-xs-3'>
