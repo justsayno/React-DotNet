@@ -1,12 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+// components
 import { EmployeeAddForm } from 'components/employees'
 
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 export class EmployeeAddView extends Component {
+  static propTypes = {
+    lastCreatedId: PropTypes.string
+  }
+  static contextTypes = { router: PropTypes.object.isRequired }
+
   render () {
     return (
       <div>

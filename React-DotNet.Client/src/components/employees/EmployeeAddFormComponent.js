@@ -4,16 +4,21 @@ export const fields = ['fullName', 'role', 'biography']
 
 import { createEmployee } from 'redux/modules/employees'
 
-const submit = (values, dispatch) => {
-  dispatch(createEmployee(values))
-}
-
 class EmployeeAddFormComponent extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired
+  }
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+
+  submit = (values, dispatch) => {
+    dispatch(createEmployee(values))
+    const { router } = this.context
+    router.replace('/')
   }
 
   render () {
@@ -23,7 +28,8 @@ class EmployeeAddFormComponent extends Component {
       resetForm,
       submitting
       } = this.props
-    return (<form onSubmit={handleSubmit(submit)}>
+
+    return (<form onSubmit={handleSubmit(this.submit)}>
       <div className='form-group'>
         <label>Full Name</label>
         <div>

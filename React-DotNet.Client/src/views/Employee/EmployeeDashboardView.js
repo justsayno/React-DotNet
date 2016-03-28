@@ -16,10 +16,15 @@ export class EmployeeDashboardView extends Component {
       fullName: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired
     })).isRequired,
+    didInvalidate: PropTypes.bool.isRequired,
     fetchAllEmployeesIfNeeded: PropTypes.func.isRequired
   }
 
   componentDidMount () {
+    this.props.fetchAllEmployeesIfNeeded()
+  }
+
+  componentWillReceiveProps (nextProps) {
     this.props.fetchAllEmployeesIfNeeded()
   }
 
