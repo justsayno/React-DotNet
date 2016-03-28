@@ -7,6 +7,9 @@ import { createSelector } from 'reselect'
 // ------------------------------------
 export const REQUEST_ALL_EMPLOYEES = 'REQUEST_ALL_EMPLOYEES'
 export const RECEIVE_ALL_EMPLOYEES = 'RECEIVE_ALL_EMPLOYEES'
+export const REQUEST_CREATE_EMPLOYEE = 'REQUEST_CREATE_EMPLOYEE'
+export const RECEIVE_CREATE_EMPLOYEE = 'RECEIVE_CREATE_EMPLOYEE'
+export const INVALIDATE_EMPLOYEES = 'INVALIDATE_EMPLOYEES'
 
 // ------------------------------------
 // Actions
@@ -23,6 +26,25 @@ function receiveAllEmployees (json) {
     type: RECEIVE_ALL_EMPLOYEES,
     employees: json,
     receivedAt: Date.now()
+  }
+}
+
+function employeeCreating (payload) {
+  return {
+    type: REQUEST_CREATE_EMPLOYEE
+  }
+}
+
+function employeeCreated (json) {
+  return {
+    type: RECEIVE_CREATE_EMPLOYEE,
+    employeeId: json.id
+  }
+}
+
+export function invalidateEmployees () {
+  return {
+    type: INVALIDATE_EMPLOYEES
   }
 }
 
@@ -44,17 +66,40 @@ export function fetchAllEmployees () {
         'Accept': 'application/json'
       }
     })
-    .then((response) => response.json())
-    .then((json) => dispatch(receiveAllEmployees(json)))
-    .catch((ex) => {
-      console.log('Error getting employees: ' + ex)
+      .then((response) => response.json())
+      .then((json) => dispatch(receiveAllEmployees(json)))
+      .catch((ex) => {
+        console.log('Error getting employees: ' + ex)
+      })
+  }
+}
+
+export function createEmployee (payload) {
+  return (dispatch) => {
+    dispatch(employeeCreating())
+    return fetch(`${API_ROOT_URI}/employee`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(employeeCreated(json))
+        dispatch(invalidateEmployees())
+      })
+      .catch((ex) => {
+        console.log('Error creating employee: ' + JSON.stringify(ex))
+      })
   }
 }
 
 export const actions = {
   requestAllEmployees,
-  receiveAllEmployees
+  receiveAllEmployees,
+  employeeCreating
 }
 
 // ------------------------------------
@@ -74,7 +119,26 @@ const ACTION_HANDLERS = {
     return Object.assign({}, state, {
       hasLoaded: true,
       isFetching: false,
-      allEmployees: action.employees
+      allEmployees: action.employees,
+      didInvalidate: false
+    })
+  },
+  [REQUEST_CREATE_EMPLOYEE]: (state, action) => {
+    console.log('Action called => REQUEST_CREATE_EMPLOYEE')
+    return Object.assign({}, state, {
+      lastCreatedId: null
+    })
+  },
+  [RECEIVE_CREATE_EMPLOYEE]: (state, action) => {
+    console.log('Action called => RECEIVE_CREATE_EMPLOYEE')
+    return Object.assign({}, state, {
+      lastCreatedId: action.employeeId
+    })
+  },
+  [INVALIDATE_EMPLOYEES]: (state, action) => {
+    console.log('Action called => INVALIDATE_EMPLOYEES')
+    return Object.assign({}, state, {
+      didInvalidate: true
     })
   }
 }
@@ -101,6 +165,7 @@ const initialState = {
   hasLoaded: false,
   isFetching: false,
   didInvalidate: false,
+  lastCreatedId: null,
   allEmployees: []
 }
 

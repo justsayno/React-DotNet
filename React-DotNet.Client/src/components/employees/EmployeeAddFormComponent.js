@@ -2,6 +2,12 @@ import React, {Component, PropTypes} from 'react'
 import {reduxForm} from 'redux-form'
 export const fields = ['fullName', 'role', 'biography']
 
+import { createEmployee } from 'redux/modules/employees'
+
+const submit = (values, dispatch) => {
+  dispatch(createEmployee(values))
+}
+
 class EmployeeAddFormComponent extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
@@ -17,7 +23,7 @@ class EmployeeAddFormComponent extends Component {
       resetForm,
       submitting
       } = this.props
-    return (<form onSubmit={handleSubmit}>
+    return (<form onSubmit={handleSubmit(submit)}>
       <div className='form-group'>
         <label>Full Name</label>
         <div>

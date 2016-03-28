@@ -20,7 +20,7 @@ export class EmployeeAddView extends Component {
           </div>
           <div className='row'>
             <div className='col-lg-6'>
-              <EmployeeAddForm/>
+              <EmployeeAddForm />
             </div>
           </div>
         </div>
