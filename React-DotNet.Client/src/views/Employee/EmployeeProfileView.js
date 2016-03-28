@@ -1,19 +1,21 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-
-let employee = {
-  'id': '74e1f9ea-2c3d-4cfa-9923-4c78a68d10f5',
-  'fullName': 'Lina Greer',
-  'role': 'Project Manager',
-  'biography': 'On time on budget every time.'
-}
 
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
-export class EmployeeAddView extends Component {
+export class EmployeeProfileView extends Component {
+  static propTypes = {
+    employees: PropTypes.arrayOf(PropTypes.shape({
+      fullName: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired
+    })).isRequired,
+    params: PropTypes.object
+  }
 
   render () {
+    const { employees, params: { employeeId } } = this.props
+    let employee = employees.filter((e) => e.id === employeeId)[0]
     return (
       <div>
         <div className='container-fluid'>
@@ -47,7 +49,8 @@ export class EmployeeAddView extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  employees: state.employees.allEmployees
 })
 
 export default connect((mapStateToProps), {
-})(EmployeeAddView)
+})(EmployeeProfileView)

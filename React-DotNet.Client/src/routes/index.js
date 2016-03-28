@@ -8,6 +8,6 @@ export default (store) => (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={EmployeeDashboardView}/>
     <Route component={EmployeeAddView} path='/employee/add'/>
-    <Route component={EmployeeProfileView} path='/employee/:portfolioId'/>
+    <Route component={EmployeeProfileView} path='/employee/:employeeId'/>
   </Route>
 )

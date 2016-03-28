@@ -13,7 +13,7 @@ class EmployeeListComponent extends Component {
   render () {
     const { employees } = this.props
     var employeeNodes = employees.map((employee) => {
-      return <EmployeeListItem FullName={employee.fullName} Role={employee.role} key={employee.id} />
+      return <EmployeeListItem Id={employee.id} FullName={employee.fullName} Role={employee.role} key={employee.id} />
     })
     return (
       <div className='container-fluid'>

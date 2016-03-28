@@ -4,11 +4,12 @@ import classNames from 'classnames'
 
 class EmployeeListItemComponent extends Component {
   static propTypes = {
+    Id: PropTypes.string.isRequired,
     FullName: PropTypes.string.isRequired,
     Role: PropTypes.string.isRequired
   }
   render () {
-    let { FullName, Role } = this.props
+    let { Id, FullName, Role } = this.props
     let panelClass = classNames({
       'panel': true,
       'panel-green': Role === 'Programmer',
@@ -30,7 +31,7 @@ class EmployeeListItemComponent extends Component {
               </div>
             </div>
           </div>
-          <Link to='/employee/1'>
+          <Link to={`/employee/${Id}`}>
             <div className='panel-footer'>
               <span className='pull-left'>View Profile</span>
               <span className='pull-right'><i className='fa fa-arrow-circle-right'></i></span>
