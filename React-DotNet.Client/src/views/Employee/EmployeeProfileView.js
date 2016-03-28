@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+// redux
+import { fetchAllEmployeesIfNeeded } from 'redux/modules/employees'
+
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
@@ -10,41 +13,52 @@ export class EmployeeProfileView extends Component {
       fullName: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired
     })).isRequired,
-    params: PropTypes.object
+    params: PropTypes.object,
+    fetchAllEmployeesIfNeeded: PropTypes.func.isRequired
+  }
+
+  componentDidMount () {
+    this.props.fetchAllEmployeesIfNeeded()
   }
 
   render () {
     const { employees, params: { employeeId } } = this.props
     let employee = employees.filter((e) => e.id === employeeId)[0]
-    return (
-      <div>
-        <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-lg-12'>
-              <h1 className='page-header'>
-                Employee Profile
-              </h1>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-lg-6'>
-              <h2>{employee.fullName}</h2>
-              <p>
-                <strong>Role</strong>:
-                <br/>
-                {employee.role}
-              </p>
-              <p>
-                <strong>Biography:</strong>:
-                <br/>
-                {employee.biography}
-              </p>
 
+    if (employee) {
+      return (
+        <div>
+          <div className='container-fluid'>
+            <div className='row'>
+              <div className='col-lg-12'>
+                <h1 className='page-header'>
+                  Employee Profile
+                </h1>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-lg-6'>
+                <h2>{employee.fullName}</h2>
+
+                <p>
+                  <strong>Role</strong>:
+                  <br/>
+                  {employee.role}
+                </p>
+
+                <p>
+                  <strong>Biography:</strong>:
+                  <br/>
+                  {employee.biography}
+                </p>
+
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+    return <span>Loading...</span>
   }
 }
 
@@ -53,4 +67,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect((mapStateToProps), {
+  fetchAllEmployeesIfNeeded
 })(EmployeeProfileView)

@@ -114,7 +114,7 @@ export default function employeeReducer (state = initialState, action) {
 // ------------------------------------
 function shouldFetchEmployees (state) {
   const { employees } = state
-  if (!employees.items) {
+  if (!employees.allEmployees) {
     return true
   } else if (employees.isFetching) {
     return false
